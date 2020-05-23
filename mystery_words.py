@@ -19,20 +19,55 @@
 import random
 
 
-#def get_words(text):
+
+def create_word_bank(opened_text):
+    all_words = []
+    for word in opened_text:
+        if word != '':
+            all_words.append(word)
+    return all_words     
+
+def determine_level(list_all_words):
+    words_to_guess = []
+    user_input = input('What level of difficulty would you like to play at today? Easy, Normal or Hard?')
     
+    if user_input == 'easy' or 'Easy':
+        for word in list_all_words:
+         if len(word) >= 4 and len(word) <= 6: 
+           words_to_guess.append(word)
+           
+    
+    if user_input == 'normal' or 'Normal':
+       for word in list_all_words:
+         if len(word) >= 6 and len(word) <= 8: 
+           words_to_guess.append(word) 
+    
+
+    if user_input == 'hard' or 'Hard':
+        for word in list_all_words:
+         if len(word) >= 8: 
+           words_to_guess.append(word) 
+    
+    return words_to_guess
+
+def random_choice(list_level_words):
+    return(random.choices(list_level_words, k = 1))
+
+def display_letter():
+         
+
+
 
 
 def game_play():
     
     open_file = open('words.txt')
     text = open_file.read().split()
-    word_bank = [ ]
-    for word in text:
-        if word != '':
-            word_bank.append(word)  
-    print(word_bank)              
-    return word_bank
+    total_word_bank = create_word_bank(text)
+    level_word_bank = determine_level(total_word_bank)
+    random_word = random_choice(level_word_bank)
+                    
+    #return word_bank
     
     
 
