@@ -52,13 +52,7 @@ def determine_level(list_all_words):
 
 def random_choice(list_level_words):
     return(random.choices(list_level_words, k = 1))
-
-def game_display(mystery_word,guesses):
-    for letter in mystery_word:
-        if letter in guesses:
-            return letter
-        else:
-            return '_'    
+    
 
 def user_guesses():
     user_input = input(' Please guess one letter: ')
@@ -79,12 +73,8 @@ def display_letter(letter, guesses):
 def display_word(word, guesses):
     
     letters_guessed = [display_letter(letter,guesses)for letter in word]
-    return letters_guessed
+    print(" ".join(letters_guessed))
 
-
-
-
- 
 def game_play():
     
     open_file = open('words.txt')
@@ -92,14 +82,34 @@ def game_play():
     total_word_bank = create_word_bank(text)
     level_word_bank = determine_level(total_word_bank)
     random_word = random_choice(level_word_bank)
-    letters = user_guesses()
-    players_guesses = list_of_guesses(letters)
-    display = display_word(random_word, players_guesses)
-    
     number_of_guesses = 8
     
-    while number_of_guesses > 0:
+    
+    
+    
+    while True:
+        if number_of_guesses > 0:
+             print(f'You have {number_of_guesses} guesses left!')
+             letters = user_guesses()
+             players_guesses = list_of_guesses(letters)
+             display = display_word(random_word, players_guesses)
+             if letters in random_word:
+                 print('You guessed correctly!')
+                 print(display)
+             elif letters not in random_word:
+                 print('You guessed wrong :(')
+                 print(display)
+                 number_of_guesses -= 1    
         
+        elif number_of_guesses <= 0:
+            print ('You lost :(')
+            return
+        
+             
+             
+
+
+
     
     
         
