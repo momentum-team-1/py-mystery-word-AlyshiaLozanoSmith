@@ -23,27 +23,27 @@ import random
 def create_word_bank(opened_text):
     all_words = []
     for word in opened_text:
-        if word != '':
+        if word != '' and word.islower():
             all_words.append(word)
     return all_words     
 
 def determine_level(list_all_words):
     words_to_guess = []
-    user_input = input('What level of difficulty would you like to play at today? Easy, Normal or Hard?')
+    user_choice = input('What level of difficulty would you like to play at today? Easy, Normal or Hard? ')
     
-    if user_input == 'easy' or 'Easy':
+    if user_choice == 'easy' or 'Easy':
         for word in list_all_words:
          if len(word) >= 4 and len(word) <= 6: 
            words_to_guess.append(word)
            
     
-    if user_input == 'normal' or 'Normal':
+    if user_choice == 'normal' or 'Normal':
        for word in list_all_words:
          if len(word) >= 6 and len(word) <= 8: 
            words_to_guess.append(word) 
     
 
-    if user_input == 'hard' or 'Hard':
+    if user_choice == 'hard' or 'Hard':
         for word in list_all_words:
          if len(word) >= 8: 
            words_to_guess.append(word) 
@@ -53,12 +53,38 @@ def determine_level(list_all_words):
 def random_choice(list_level_words):
     return(random.choices(list_level_words, k = 1))
 
-def display_letter():
-         
+def game_display(mystery_word,guesses):
+    for letter in mystery_word:
+        if letter in guesses:
+            return letter
+        else:
+            return '_'    
+
+def user_guesses():
+    user_input = input(' Please guess one letter: ')
+    lower_letter = user_input.lower()
+    return lower_letter
+
+def list_of_guesses(letter):
+    guesses = [ ]
+    guesses.append(letter)
+    return guesses
+
+def display_letter(letter, guesses):
+    if letter in guesses:
+        return letter
+    else:
+        return '_'
+
+def display_word(word, guesses):
+    
+    letters_guessed = [display_letter(letter,guesses)for letter in word]
+    return letters_guessed
 
 
 
 
+ 
 def game_play():
     
     open_file = open('words.txt')
@@ -66,6 +92,20 @@ def game_play():
     total_word_bank = create_word_bank(text)
     level_word_bank = determine_level(total_word_bank)
     random_word = random_choice(level_word_bank)
+    letters = user_guesses()
+    players_guesses = list_of_guesses(letters)
+    display = display_word(random_word, players_guesses)
+    
+    number_of_guesses = 8
+    
+    while number_of_guesses > 0:
+        
+    
+    
+        
+        
+    
+
                     
     #return word_bank
     
